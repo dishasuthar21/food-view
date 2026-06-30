@@ -12,7 +12,7 @@ const Home = () => {
   const [authMessage, setAuthMessage] = useState('')
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/food", { withCredentials: true })
+    axios.get(`${import.meta.env.VITE_API_URL}/api/food`, { withCredentials: true })
       .then(response => {
         setVideos(response.data.foodItems)
       })
@@ -20,7 +20,7 @@ const Home = () => {
   }, [])
 
   async function likeVideo(item) {
-    const response = await axios.post("http://localhost:3000/api/food/like", { foodId: item._id }, { withCredentials: true })
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/food/like`, { foodId: item._id }, { withCredentials: true })
 
     if (response.data.like) {
       setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: v.likeCount + 1 } : v))
@@ -30,7 +30,7 @@ const Home = () => {
   }
 
   async function saveVideo(item) {
-    const response = await axios.post("http://localhost:3000/api/food/save", { foodId: item._id }, { withCredentials: true })
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/food/save`, { foodId: item._id }, { withCredentials: true })
 
     if (response.data.save) {
       setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, savesCount: v.savesCount + 1 } : v))
@@ -64,8 +64,8 @@ const Home = () => {
 
     try {
       const endpoint = authPanel === 'partner'
-        ? "http://localhost:3000/api/auth/food-partner/login"
-        : "http://localhost:3000/api/auth/user/login"
+        ? `${import.meta.env.VITE_API_URL}/api/auth/food-partner/login`
+        : `${import.meta.env.VITE_API_URL}/api/auth/user/login`
 
       const response = await axios.post(endpoint, {
         email: authForm.email,

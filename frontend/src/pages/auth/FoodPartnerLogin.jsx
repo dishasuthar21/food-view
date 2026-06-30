@@ -12,8 +12,9 @@ const FoodPartnerLogin = () => {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
+    console.log(import.meta.env.VITE_API_URL);
 
-    const response = await axios.post("http://localhost:3000/api/auth/food-partner/login", {
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/food-partner/login`, {
       email,
       password
     }, { withCredentials: true });
@@ -40,7 +41,7 @@ const FoodPartnerLogin = () => {
             <label htmlFor="password">Password</label>
             <input id="password" name="password" type="password" placeholder="Password" autoComplete="current-password" />
           </div>
-          <button className="auth-submit" type="submit">Sign In</button>
+          <button className="auth-submit" type="submit">Log In</button>
         </form>
         <div className="auth-alt-action">
           Not registered yet? <Link to="/food-partner/register">Register here</Link>
